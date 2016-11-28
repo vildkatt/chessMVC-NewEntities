@@ -28,6 +28,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 
 		@Id @GeneratedValue(strategy=GenerationType.AUTO)
+		@Column (name = "CHALLENGE_ID")
 		private long challengeId;
 		
 		@ManyToOne (fetch=FetchType.LAZY)
@@ -44,7 +45,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 		private Date dateOfChallengeRequest;
 		
 		@LastModifiedDate
-		@Temporal(TemporalType.DATE)
 		@Column(nullable = false)
 		private Date dateOfChallengeStateModification;
 		

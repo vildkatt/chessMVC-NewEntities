@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
 
 import com.capgemini.chess.dao.*;
+import com.capgemini.chess.exceptions.NoEntityFoundException;
 
 @Transactional(Transactional.TxType.SUPPORTS)
 public abstract class AbstractDao<T, K extends Serializable> implements Dao<T, K> {
@@ -34,7 +35,7 @@ public abstract class AbstractDao<T, K extends Serializable> implements Dao<T, K
     }
 
     @Override
-    public T findOne(K id) {
+    public T findOne(K id) throws NoEntityFoundException {
         return entityManager.find(getDomainClass(), id);
     }
 

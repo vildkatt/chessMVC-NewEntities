@@ -3,9 +3,10 @@ package com.capgemini.chess.dataaccess.entities;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Lob;
 
-
+@Embeddable
 public class EmbeddedPersonalStatement implements Serializable{
 
 	/**
@@ -18,7 +19,11 @@ public class EmbeddedPersonalStatement implements Serializable{
 	@Column (name="ABOUT_ME", nullable = true)
 	private String aboutMe;
 	@Lob
+	@Column (name = "LIFE_MOTTO")
 	private String lifeMotto;
+	
+	
+	
 	public String getAboutMe() {
 		return aboutMe;
 	}

@@ -1,6 +1,7 @@
 package com.capgemini.chess.dataaccess.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -8,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.MapsId;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -49,6 +52,12 @@ public class UserEntity extends BaseEntity implements Serializable{
 	@Enumerated
 	private Level level;
 	
+	@OneToMany(targetEntity=ChallengeEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="challengingUser", orphanRemoval = true)
+	private Set<ChallengeEntity> userChallenges = new HashSet<>();
+	
+	@OneToMany(targetEntity=ChallengeEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="opponent", orphanRemoval = true)
+	private Set<ChallengeEntity> opponentChallenges = new HashSet<>();
+	
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="team_members", 
 	joinColumns =  @JoinColumn(name="USER_ID"), 
@@ -57,6 +66,8 @@ public class UserEntity extends BaseEntity implements Serializable{
 	
 	@Embedded
 	private EmbeddedPersonalStatement personalStatement;
+	
+	
 	public long getId() {
 		return id;
 	}

@@ -25,8 +25,8 @@ public class UserProfileTO {
 	@NotNull
 	@NotEmpty	
 	private Level level;
-	private String aboutMe;
-	private String lifeMotto;
+	
+	private EmbeddedPersonalStatementTO personalStatementTO;
 	
 	public long getId() {
 		return id;
@@ -87,19 +87,13 @@ public class UserProfileTO {
 		this.level = level;
 	}
 
-	public String getAboutMe() {
-		return aboutMe;
+	public EmbeddedPersonalStatementTO getPersonalStatementTO() {
+		return personalStatementTO;
 	}
+
+	public void setPersonalStatementTO(EmbeddedPersonalStatementTO personalStatementTO) {
+		this.personalStatementTO = personalStatementTO;
+	}
+
 	
-	public void setAboutMe(String aboutMe) {
-		this.aboutMe = aboutMe;
-	}
-	
-	public String getLifeMotto() {
-		return lifeMotto;
-	}
-	
-	public void setLifeMotto(String lifeMotto) {
-		this.lifeMotto = lifeMotto;
-	}
 }

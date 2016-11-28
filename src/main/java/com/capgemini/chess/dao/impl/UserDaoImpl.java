@@ -1,87 +1,75 @@
 package com.capgemini.chess.dao.impl;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.chess.dao.UserDao;
 import com.capgemini.chess.dataaccess.entities.Level;
 import com.capgemini.chess.dataaccess.entities.UserEntity;
-import com.capgemini.chess.service.to.UserProfileTO;
 
 @Repository
 
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl extends AbstractDao<UserEntity, Long> implements UserDao {
 
-	Set <UserEntity> users = new HashSet <>();
-	Set <UserEntity> usersSelectedForAChallenge = new HashSet <> ();
 	
-	@Override
+	public UserDaoImpl(){
+		//init();
+	}
+
+
+
 	
-	public boolean isUserRegistered(String login) {
-		
-		if (login == null){
-			throw new RuntimeException ("Login can't be null");
-		}
-		for (UserEntity user : users) {
-			if (user.getLogin().equals(login)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@Override
-	public void registerUser(UserProfileTO userProfileTO) {
-		
-		
-		
-	}
-
-	@Override
-	public void unregisterUser(long id) {
-		
-		
-	}
-
-	@Override
-	public void loginUser(String login, String password) {
-		// TODO Auto-generated method stub
-		//spring security
-		
-	}
-
-	@Override
-	public Set<UserEntity> createUserSetForAutomaticChallenge(Level level) {
-		if (level == null){
-			throw new RuntimeException ("Login can't be null");
-		}
-		for (UserEntity user : users) {
-			if (user.getLevel().equals(level)) {
-				usersSelectedForAChallenge.add(user);
-			}
-		}
-		return usersSelectedForAChallenge;
-	}
-		
-	
-
-	@Override
-	public void logoffUser(String login) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public UserEntity findUserByLogin(String login) {
-		// TODO Auto-generated method stub
-		return null;
+	
+		TypedQuery<UserEntity> query = entityManager.createQuery(
+				"select user from UserEntity user where user.login = :login",
+				UserEntity.class);
+		query.setParameter("login", login);
+		return query.getSingleResult();
 	}
 
+
+
 	@Override
-	public UserEntity findUserByLevel(Level level) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserEntity findUserBySurname (String surname) {
+		TypedQuery<UserEntity> query = entityManager.createQuery(
+				"select user from UserEntity user where user.surname = :surname",
+				UserEntity.class);
+		query.setParameter("surname", surname);
+		return query.getSingleResult();
 	}
+	
+	
+	private void init(){
+		
+		
+		UserEntity u1 = new UserEntity();
+		u1.setId(1);
+		u1.setLogin("aaa");
+		u1.setLevel(Level.ADVANCED);
+
+		UserEntity u2 = new UserEntity();
+		u2.setId(2);
+		u2.setLogin("bbb");
+		u2.setLevel(Level.NEWBIE);	
+
+		UserEntity u3 = new UserEntity();
+		u3.setId(3);
+		u3.setLogin("ccc");
+		u3.setLevel(Level.NEWBIE);
+
+		UserEntity u4 = new UserEntity();
+		u4.setId(3);
+		u4.setLogin("ddd");
+		u4.setLevel(Level.WEAKLING);
+
+
+	}
+
+
 }

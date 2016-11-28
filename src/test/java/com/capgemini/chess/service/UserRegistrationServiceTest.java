@@ -33,9 +33,5 @@ public class UserRegistrationServiceTest {
 		}
 	}
 	
-	@Test (expected = RuntimeException.class)
-	public void shouldThrowNewRuntimeExceptionWhenLoginNull() {
-		service.isUserRegistered(null);
-	}
 	
 }

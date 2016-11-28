@@ -1,20 +1,15 @@
 	package com.capgemini.chess.service.to;
 
-	import java.text.SimpleDateFormat;
+
+import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 	import org.hibernate.validator.constraints.NotEmpty;
 
 import com.capgemini.chess.dataaccess.entities.ChallengeStatus;
-import com.capgemini.chess.dataaccess.entities.Level;
 import com.capgemini.chess.dataaccess.entities.UserEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 
 public class ChallengeTO {
-
-	
 		
 		@NotNull
 		@NotEmpty	
@@ -30,7 +25,7 @@ public class ChallengeTO {
 		private ChallengeStatus challengeStatus;
 		@NotNull
 		@NotEmpty
-		private SimpleDateFormat dateOfChallengeRequest;
+		private Date dateOfChallengeRequest;
 		
 		
 		
@@ -52,11 +47,17 @@ public class ChallengeTO {
 		public void setChallengeStatus(ChallengeStatus challengeStatus) {
 			this.challengeStatus = challengeStatus;
 		}
-		public SimpleDateFormat getDateOfChallengeRequest() {
+		public Date getDateOfChallengeRequest() {
 			return dateOfChallengeRequest;
 		}
-		public void setDateOfChallengeRequest(SimpleDateFormat dateOfChallengeRequest) {
+		public void setDateOfChallengeRequest(Date dateOfChallengeRequest) {
 			this.dateOfChallengeRequest = dateOfChallengeRequest;
+		}
+		public UserEntity getOpponent() {
+			return opponent;
+		}
+		public void setOpponent(UserEntity opponent) {
+			this.opponent = opponent;
 		}
 		
 		

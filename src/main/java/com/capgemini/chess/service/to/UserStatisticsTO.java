@@ -1,30 +1,16 @@
-package com.capgemini.chess.dataaccess.entities;
-
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+package com.capgemini.chess.service.to;
 
 
-@Entity
-@Table(name = "USER_STATISTICS")
-public class UserStatisticsEntity extends BaseEntity implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8160790922748269336L;
+import javax.validation.constraints.NotNull;
 
-	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
-	@Column (name = "STATISTICS_ID")
+import org.hibernate.validator.constraints.NotEmpty;
+
+public class UserStatisticsTO {
+
+	@NotNull
+	@NotEmpty
 	long statisticsId;
 	
-	@Column (nullable=false)
 	long numberOfGamesPlayed;
 	
 	long numberOfGamesWon;
@@ -63,12 +49,4 @@ public class UserStatisticsEntity extends BaseEntity implements Serializable {
 	public void setNumberOfGamesLost(long numberOfGamesLost) {
 		this.numberOfGamesLost = numberOfGamesLost;
 	}
-
-	
-	public UserStatisticsEntity() {
-    	super();
-}
-	
-	
-
 }

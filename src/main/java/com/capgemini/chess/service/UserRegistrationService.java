@@ -4,10 +4,23 @@ import com.capgemini.chess.service.to.UserProfileTO;
 
 public interface UserRegistrationService {
 
-	public boolean isUserRegistered (String login);
 	
-	public void registerUser (UserProfileTO userProfileTO);
+	/** 
+	 * Registers a new user in the database
+	 * @param UserProfileTO
+	 */
+	public UserProfileTO registerUser (UserProfileTO userTO);
 	
-	public void unregisterUser (long id);
+	/** 
+	 * Removes a  user from the database
+	 * @param String login
+	 */
+	public void unregisterUser (UserProfileTO userTO);
+
+	/** 
+	 * Finds a user by login
+	 * @param String login
+	 */
+	UserProfileTO findUserEntityByLogin(String login);
 	
 }
