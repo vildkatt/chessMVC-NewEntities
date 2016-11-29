@@ -10,9 +10,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
 import com.capgemini.chess.dataaccess.entities.UserEntity;
 
+
 @Entity
+@Table (name="TEAMS")
+@NamedQuery(name = "TeamEntity.findTeamByName", query = "select t from TeamEntity t where t.teamName = :teamName")
 public class TeamEntity extends BaseEntity implements Serializable {
 	
 	/**

@@ -1,44 +1,28 @@
 package com.capgemini.chess.service.impl;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.capgemini.chess.dao.ChallengeDao;
 import com.capgemini.chess.dataaccess.entities.ChallengeEntity;
 import com.capgemini.chess.dataaccess.entities.ChallengeStatus;
 import com.capgemini.chess.dataaccess.entities.UserEntity;
 import com.capgemini.chess.service.ChallengeService;
 import com.capgemini.chess.service.mapper.ChallengeMapper;
-import com.capgemini.chess.service.mapper.UserProfileMapper;
 import com.capgemini.chess.service.to.ChallengeTO;
-import com.capgemini.chess.service.to.UserProfileTO;
 
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
 
 	@Autowired
 	private ChallengeDao challengeDao;
+	
+	ChallengeMapper mapper = new ChallengeMapper();
 
-	@Override
-	public Set<UserProfileTO> createUserSetForAutomaticChallenge(UserProfileTO userProfileTO) {
-
-		Set<UserProfileTO> userProfileTOForChallenge = new HashSet<>();
-
-		long userID = userProfileTO.getId();
-		int level = userProfileTO.getLevel().getValue();
-
-		Set<UserEntity> userEntityForChallenge = challengeDao.getUsersWithCorrectLevel(userID, level);
-
-		for (UserEntity user : userEntityForChallenge) {
-			UserProfileTO userTO = UserProfileMapper.map(user);
-			userProfileTOForChallenge.add(userTO);
-		}
-
-		return userProfileTOForChallenge;
-	}
 
 	@Override
 	public boolean checkIfChallengeExists(ChallengeEntity challengeEntity) {
@@ -64,6 +48,34 @@ public class ChallengeServiceImpl implements ChallengeService {
 		Set<ChallengeEntity> challengesOfAnOpponent = challengeDao.findChallengesWithAnOpponent(challengingPlayer,
 				opponent);
 		return challengesOfAnOpponent;
+	}
+	
+	@Override
+	public ChallengeEntity sendChallengeToOpponent(ChallengeTO challengeTO) {
+		challengeDao.save(ChallengeMapper.map(challengeTO);
+		
+	}
+
+	@Override
+	public void cancelChallenge(ChallengeTO challengeTO) {
+		challengeDao.delete(challenge);
+	}
+
+	@Override
+	public ChallengeEntity acceptChallenge(ChallengeEntity challenge) {
+		challenge.setAccepted(true);
+		return challengeDao.update(challenge);
+	}
+
+	@Override
+	public ChallengeEntity rejectChallenge(ChallengeEntity challenge) {
+		challenge.setAccepted(false);
+		return challengeDao.update(challenge);
+	}
+
+	@Override
+	public ChallengeEntity findChallenge(Long challengeId) {
+		return challengeDao.findOne(challengeId);
 	}
 
 	public void setChallengeDao(ChallengeDao challengeDao) {

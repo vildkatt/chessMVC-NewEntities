@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,6 +20,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 	@Entity
 	@Table(name = "CHALLENGES")
+	@NamedQuery (name = "ChallengeEntity.findAll", query = "select c from ChallengeEntity c")
 	public class ChallengeEntity extends BaseEntity implements Serializable {		
 		
 		/**

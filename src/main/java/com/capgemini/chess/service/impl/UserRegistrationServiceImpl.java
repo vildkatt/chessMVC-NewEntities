@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.chess.dao.UserDao;
 import com.capgemini.chess.dataaccess.entities.UserEntity;
+import com.capgemini.chess.exceptions.EntityNotFoundException;
 import com.capgemini.chess.service.UserRegistrationService;
 import com.capgemini.chess.service.mapper.UserProfileMapper;
 import com.capgemini.chess.service.to.UserProfileTO;
@@ -21,24 +22,25 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 
 	@Override
 	public UserProfileTO registerUser(UserProfileTO userTO) {
-		userDao.save(UserProfileMapper.map(userTO));
+		UserProfileTO userTOSave = UserProfileMapper.map(userDao.findUserByLogin(userTO.getLogin()));
+		if (userTOSave != null) {
+			throw new EntityNotFoundException("This login is already registered");
+		}
+		userDao.save(UserProfileMapper.map(userTOSave));
 		String login = userTO.getLogin();
 		return (UserProfileMapper.map(userDao.findUserByLogin(login)));
 	}
 
 	@Override
-	public UserProfileTO findUserEntityByLogin(String login) {
-		return UserProfileMapper.map(userDao.findUserByLogin(login));
+	public void unregisterUser(UserProfileTO userTO) {
+		UserProfileTO userTORemove = UserProfileMapper.map(userDao.findOne(userTO.getId()));
+			if (userTORemove == null) {
+				throw new EntityNotFoundException("No such user in the database");
+			}
+			userDao.delete(UserProfileMapper.map(userTORemove));
+	
 	}
 
-	@Override
-	public void unregisterUser(UserProfileTO userTO) {
-		userDao.delete(UserProfileMapper.map(userTO));
-	}
-	
-	public UserProfileTO findUserBySurname(String surname) {
-		return UserProfileMapper.map(userDao.findUserBySurname(surname));
-	}
 	
 
 	public void setUserRegistrationDao(UserDao userDao) {

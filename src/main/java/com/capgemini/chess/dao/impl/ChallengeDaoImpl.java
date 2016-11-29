@@ -25,46 +25,11 @@ public class ChallengeDaoImpl extends AbstractDao<ChallengeEntity, Long> impleme
 	private List<UserEntity> users = new ArrayList<>();
 	private List<ChallengeEntity> challenges = new ArrayList<>();
 
-	public ChallengeDaoImpl() {
-		initRepo();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.capgemini.chess.dao.ChallengeDao#getUsersWithCorrectLevel(long,
-	 * int)
-	 */
-
-	@Override
-	public Set<UserEntity> getUsersWithCorrectLevel(long userID, int level) {
-
-		Set<UserEntity> usersWithCorrectLevel = new HashSet<>();
-		for (UserEntity user : users) {
-			if (user.getId() == userID) {
-				continue;
-			} else if (user.getLevel().getValue() == level || user.getLevel().getValue() == level + 1
-					|| user.getLevel().getValue() == level - 1) {
-				usersWithCorrectLevel.add(user);
-			}
-		}
-
-		return usersWithCorrectLevel;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @param challenge status
-	 */
-
+	
 	@Override
 	public List <ChallengeEntity> findChallengeByStatus(ChallengeStatus challengeStatus) {
 		List <ChallengeEntity> challengesWithStatus = new ArrayList <>();
-		for (ChallengeEntity challenge : challenges) {
-			if (challenge.getChallengeStatus().equals(challengeStatus)) {
-				challengesWithStatus.add(challenge);
-			}
+	
 		}
 		return challengesWithStatus;
 	}

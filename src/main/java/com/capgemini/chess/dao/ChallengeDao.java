@@ -9,7 +9,7 @@ import com.capgemini.chess.dataaccess.entities.ChallengeEntity;
 import com.capgemini.chess.dataaccess.entities.ChallengeStatus;
 import com.capgemini.chess.dataaccess.entities.UserEntity;
 
-public interface ChallengeDao {
+public interface ChallengeDao extends Dao<ChallengeEntity, Long> {
 
 	
 	public List<ChallengeEntity> findChallengeByStatus (ChallengeStatus challengeStatus);
@@ -17,8 +17,6 @@ public interface ChallengeDao {
 	public Set <ChallengeEntity> findChallengeByChallengingPlayer (UserEntity challengingPlayer);
 	
 	public Set <ChallengeEntity> findChallengesWithAnOpponent (UserEntity player, UserEntity opponent);
-	
-	public Set <UserEntity> getUsersWithCorrectLevel(long userID, int level);
 
 	void updateExpiredChallenges(long expirationDate);
 	

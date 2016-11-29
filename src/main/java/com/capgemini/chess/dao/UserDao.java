@@ -1,9 +1,15 @@
 package com.capgemini.chess.dao;
 
 
-import com.capgemini.chess.dataaccess.entities.UserEntity;
+import java.util.List;
 
-public interface UserDao extends Dao<UserEntity, Long> {
+import org.springframework.stereotype.Repository;
+
+import com.capgemini.chess.dataaccess.entities.UserEntity;
+import com.capgemini.chess.utils.UserSearchCriteria;
+
+@Repository
+public interface UserDao extends Dao <UserEntity, Long>{
 
 	
 	/** 
@@ -13,6 +19,10 @@ public interface UserDao extends Dao<UserEntity, Long> {
 	UserEntity findUserByLogin (String login);
 
 	UserEntity findUserBySurname(String surname);
+
+	List<UserEntity> findUserBySearchCriteria(UserSearchCriteria searchCriteria);
+
+	List<UserEntity> findUsersInATeam(String teamName);
 
 	
 

@@ -6,10 +6,8 @@ import java.util.Set;
 
 import com.capgemini.chess.dataaccess.entities.ChallengeEntity;
 import com.capgemini.chess.dataaccess.entities.ChallengeStatus;
-import com.capgemini.chess.dataaccess.entities.Level;
 import com.capgemini.chess.dataaccess.entities.UserEntity;
 import com.capgemini.chess.service.to.ChallengeTO;
-import com.capgemini.chess.service.to.UserProfileTO;
 
 public interface ChallengeService {
 
@@ -27,11 +25,6 @@ public interface ChallengeService {
 	  */
 	public Set <ChallengeEntity> findChallengeByPlayers (UserEntity challengingPlayer, UserEntity opponent);
 
-	/**
-	  * @param user entities: challenging player and opponent
-	  * @return a set of users that are of correct level and can be selected as opponents
-	  */
-	public Set<UserProfileTO> createUserSetForAutomaticChallenge(UserProfileTO userProfileTO);
 
 	 /**
 	  * @param challenge entity, date

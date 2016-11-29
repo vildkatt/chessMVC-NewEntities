@@ -17,10 +17,5 @@ public interface UserRegistrationService {
 	 */
 	public void unregisterUser (UserProfileTO userTO);
 
-	/** 
-	 * Finds a user by login
-	 * @param String login
-	 */
-	UserProfileTO findUserEntityByLogin(String login);
-	
+
 }

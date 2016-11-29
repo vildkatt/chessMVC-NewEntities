@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.chess.dao.UserDao;
 import com.capgemini.chess.dataaccess.entities.Level;
 import com.capgemini.chess.dataaccess.entities.UserEntity;
+import com.capgemini.chess.exceptions.EntityNotFoundException;
+import com.capgemini.chess.utils.UserSearchCriteria;
 
 @Repository
-
 public class UserDaoImpl extends AbstractDao<UserEntity, Long> implements UserDao {
 
 	
@@ -20,9 +25,6 @@ public class UserDaoImpl extends AbstractDao<UserEntity, Long> implements UserDa
 		//init();
 	}
 
-
-
-	
 	@Override
 	public UserEntity findUserByLogin(String login) {
 	
@@ -33,18 +35,58 @@ public class UserDaoImpl extends AbstractDao<UserEntity, Long> implements UserDa
 		return query.getSingleResult();
 	}
 
-
-
 	@Override
 	public UserEntity findUserBySurname (String surname) {
 		TypedQuery<UserEntity> query = entityManager.createQuery(
 				"select user from UserEntity user where user.surname = :surname",
 				UserEntity.class);
 		query.setParameter("surname", surname);
+		UserEntity result = query.getSingleResult();
+		
+		if (result==null) {
+			throw new EntityNotFoundException("User not found");
+		}
 		return query.getSingleResult();
 	}
 	
+	@Override
+	public List<UserEntity> findUserBySearchCriteria(UserSearchCriteria searchCriteria) {
+		
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<UserEntity> query = builder.createQuery(UserEntity.class);
+		Root<UserEntity> empl = query.from(UserEntity.class);
+		List<Predicate> predicates = new ArrayList<Predicate>();
+
+		if (searchCriteria.getSurname() != null) {
+			predicates.add(builder.equal(empl.get("surname"), searchCriteria.getSurname()));
+		}
+		if (searchCriteria.getLogin() != null) {
+			predicates.add(builder.equal(empl.get("login"), searchCriteria.getLogin()));
+		}
+		if (searchCriteria.getEmail() != null) {
+			predicates.add(builder.equal(empl.get("email"), searchCriteria.getEmail()));
+		}
 	
+		query.select(empl).where(predicates.toArray(new Predicate[] {}));
+		
+		List <UserEntity> users = entityManager.createQuery(query).getResultList();
+		
+		if (users.isEmpty()) {
+			throw new EntityNotFoundException("No users found");
+		}
+
+		return users;
+	}
+	@Override
+	public List<UserEntity> findUsersInATeam(String teamName) {
+			TypedQuery<UserEntity> query = entityManager.createQuery(
+					"select user from UserEntity user left join user.teams team where teams.name like :teamName",
+					UserEntity.class);
+			query.setParameter("teamName", teamName);
+			return query.getResultList();
+		}
+	
+
 	private void init(){
 		
 		
