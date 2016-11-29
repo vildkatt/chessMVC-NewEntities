@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,8 +19,11 @@ import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.LastModifiedDate;
 
+import com.capgemini.chess.listeners.ModificationListeners;
+
 	@Entity
 	@Table(name = "CHALLENGES")
+	@EntityListeners({ ModificationListeners.class })
 	@NamedQuery (name = "ChallengeEntity.findAll", query = "select c from ChallengeEntity c")
 	public class ChallengeEntity extends BaseEntity implements Serializable {		
 		
