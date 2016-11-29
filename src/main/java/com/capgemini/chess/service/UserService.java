@@ -12,7 +12,7 @@ public interface UserService {
 
 	UserProfileTO findUserEntityByLogin(String login);
 
-	UserProfileTO findUserBySurname(String surname);
+	List <UserProfileTO> findUserBySurname(String surname);
 
 	List<UserProfileTO> findUserBySearchCriteria(UserSearchCriteria searchCriteria);
 

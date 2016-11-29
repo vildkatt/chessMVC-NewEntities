@@ -2,9 +2,9 @@ package com.capgemini.chess.dao.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
@@ -14,10 +14,6 @@ import com.capgemini.chess.dataaccess.entities.ChallengeStatus;
 import com.capgemini.chess.dataaccess.entities.Level;
 import com.capgemini.chess.dataaccess.entities.UserEntity;
 
-/**
- * @author NPIETRAS
- *
- */
 
 @Repository
 public class ChallengeDaoImpl extends AbstractDao<ChallengeEntity, Long> implements ChallengeDao {
@@ -25,48 +21,32 @@ public class ChallengeDaoImpl extends AbstractDao<ChallengeEntity, Long> impleme
 	private List<UserEntity> users = new ArrayList<>();
 	private List<ChallengeEntity> challenges = new ArrayList<>();
 
-	
 	@Override
-	public List <ChallengeEntity> findChallengeByStatus(ChallengeStatus challengeStatus) {
-		List <ChallengeEntity> challengesWithStatus = new ArrayList <>();
-	
-		}
+	public List<ChallengeEntity> findChallengeByStatus(ChallengeStatus challengeStatus) {
+		List<ChallengeEntity> challengesWithStatus = new ArrayList<>();
+
 		return challengesWithStatus;
 	}
 
 	@Override
-	public Set<ChallengeEntity> findChallengeByChallengingPlayer(UserEntity challengingPlayer) {
-		Set<ChallengeEntity> challengesOfOnePlayer = new HashSet<>();
-		for (ChallengeEntity challenge : challenges) {
-			if (challenge.getChallengingUser().equals(challengingPlayer)) {
-				challengesOfOnePlayer.add(challenge);
-			}
-		}
-		return challengesOfOnePlayer;
+	public List <ChallengeEntity> findChallengeByChallengingPlayer(String login) {
+		TypedQuery<ChallengeEntity> query = entityManager.createQuery(
+				"select challenge from ChallengeEntity challenge join fetch ChallengeEntity.challengingPlayer where challenge.challengingPlayer.login like :login",
+				ChallengeEntity.class);
+		query.setParameter("login", login);
+
+		return query.getResultList();	
 	}
 
 	@Override
-	public Set<ChallengeEntity> findChallengesWithAnOpponent(UserEntity player, UserEntity opponent) {
+	public List <ChallengeEntity> findChallengeByRequestDate(Date dateOfChallengeRequest) {
+		TypedQuery<ChallengeEntity> query = entityManager.createQuery(
+				"select challenge from ChallengeEntity challenge where challenge.dateOfChallengeRequest like :dateOfChallengeRequest",
+		ChallengeEntity.class);
+		query.setParameter("dateOfChallengeRequest", dateOfChallengeRequest);
 
-		Set<ChallengeEntity> challengesWithAnOpponent = new HashSet<>();
-
-		for (ChallengeEntity challenge : challenges) {
-
-			if (challenge.getChallengingUser().equals(player)) {
-				continue;
-			}
-
-			if (challenge.getOpponent().equals(opponent)) {
-				challengesWithAnOpponent.add(challenge);
-			}
-		}
-		return challengesWithAnOpponent;
-	}
-
-	@Override
-	public ChallengeEntity findChallengeByRequestDate(ChallengeEntity challengeEntity, Date date) {
-		// TODO Auto-generated method stub
-		return null;
+		return query.getResultList();	
+		
 	}
 
 	@Override
@@ -79,7 +59,7 @@ public class ChallengeDaoImpl extends AbstractDao<ChallengeEntity, Long> impleme
 
 		for (ChallengeEntity challenge : challenges) {
 			if (challenge.getDateOfChallengeRequest().getTime() + expirationDate < currentDate.getTime()) {
-			//	challenge.setChallengeStatus(ChallengeStatus.EXPIRED);
+				// challenge.setChallengeStatus(ChallengeStatus.EXPIRED);
 			}
 		}
 		currentDate = null;

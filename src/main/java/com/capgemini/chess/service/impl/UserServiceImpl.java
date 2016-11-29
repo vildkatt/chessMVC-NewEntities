@@ -42,8 +42,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserProfileTO findUserBySurname(String surname) {
-		return UserProfileMapper.map(userDao.findUserBySurname(surname));
+	public List <UserProfileTO> findUserBySurname(String surname) {
+		if (surname=="") {throw new WrongParameterException ("User not found");}
+		List <UserProfileTO> users = UserProfileMapper.map2TOs(userDao.findUsersBySurname(surname));
+		if (users.isEmpty()) {throw new EntityNotFoundException("No users found");}
+		return users;
 	}
 	
 	@Override

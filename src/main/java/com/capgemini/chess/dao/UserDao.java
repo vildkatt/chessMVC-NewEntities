@@ -18,7 +18,7 @@ public interface UserDao extends Dao <UserEntity, Long>{
 	 */
 	UserEntity findUserByLogin (String login);
 
-	UserEntity findUserBySurname(String surname);
+	List <UserEntity> findUsersBySurname(String surname);
 
 	List<UserEntity> findUserBySearchCriteria(UserSearchCriteria searchCriteria);
 
