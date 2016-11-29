@@ -37,6 +37,12 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public UserProfileTO findUserById(long id) {
+		return UserProfileMapper.map(userDao.findOne(id));
+	}
+	
+	
+	@Override
 	public UserProfileTO findUserEntityByLogin(String login) {
 		return UserProfileMapper.map(userDao.findUserByLogin(login));
 	}

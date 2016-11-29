@@ -7,7 +7,7 @@ import com.capgemini.chess.dataaccess.entities.BaseEntity;
 
 public class ModificationListeners {
 
-	public class ModificationListener<T extends BaseEntity> {
+	public class ModificationListener <T extends BaseEntity> {
 
 		@PrePersist
 		public void setCreationDate(T entity) {

@@ -1,4 +1,4 @@
-package com.capgemini.chess;
+package com.capgemini.chess.service;
 
 import javax.transaction.Transactional;
 
@@ -9,6 +9,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional 
-public class UserRegistrationServiceTest {
+public class ChallengeServiceTest {
 
 }

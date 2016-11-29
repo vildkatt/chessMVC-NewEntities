@@ -16,14 +16,11 @@ public class UserProfileTO {
 	@NotNull
 	@NotEmpty	
 	private String login;
-	@NotNull
-	@NotEmpty	
 	private String password;
 	private String name;
 	private String surname;
 	private String email;
-	@NotNull
-	@NotEmpty	
+
 	private Level level;
 	
 	private EmbeddedPersonalStatementTO personalStatementTO;

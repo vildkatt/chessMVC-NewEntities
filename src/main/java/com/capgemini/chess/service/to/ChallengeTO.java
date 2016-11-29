@@ -4,7 +4,8 @@
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
-	import org.hibernate.validator.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.capgemini.chess.dataaccess.entities.ChallengeStatus;
 import com.capgemini.chess.dataaccess.entities.UserEntity;
@@ -35,11 +36,19 @@ public class ChallengeTO {
 		public void setChallengeID(long challengeID) {
 			this.challengeID = challengeID;
 		}
+		
+
 		public UserEntity getChallengingUser() {
 			return challengingUser;
 		}
 		public void setChallengingUser(UserEntity challengingUser) {
 			this.challengingUser = challengingUser;
+		}
+		public UserEntity getOpponent() {
+			return opponent;
+		}
+		public void setOpponent(UserEntity opponent) {
+			this.opponent = opponent;
 		}
 		public ChallengeStatus getChallengeStatus() {
 			return challengeStatus;
@@ -53,12 +62,7 @@ public class ChallengeTO {
 		public void setDateOfChallengeRequest(Date dateOfChallengeRequest) {
 			this.dateOfChallengeRequest = dateOfChallengeRequest;
 		}
-		public UserEntity getOpponent() {
-			return opponent;
-		}
-		public void setOpponent(UserEntity opponent) {
-			this.opponent = opponent;
-		}
+	
 		
 		
 }

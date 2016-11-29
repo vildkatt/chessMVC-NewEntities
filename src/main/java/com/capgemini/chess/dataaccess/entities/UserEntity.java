@@ -47,8 +47,10 @@ public class UserEntity extends BaseEntity implements Serializable{
 	private String name;
 	private String surname;
 	private String email;
-	@OneToOne @MapsId
+	@OneToOne
+	@JoinColumn(name="STATISTICS_ID")
     private UserStatisticsEntity userStatistics;
+	
 	@Enumerated
 	private Level level;
 	

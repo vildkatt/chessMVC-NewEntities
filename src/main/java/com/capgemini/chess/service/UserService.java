@@ -19,5 +19,7 @@ public interface UserService {
 	List<UserProfileTO> findUsersInATeam(String teamName);
 
 	void assignUserToATeam(String login, String teamName) throws WrongParameterException;
+
+	UserProfileTO findUserById(long id);
 	
 }

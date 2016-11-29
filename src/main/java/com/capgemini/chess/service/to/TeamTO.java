@@ -15,12 +15,8 @@ public class TeamTO {
 	@NotEmpty
 	private long teamId;
 	
-	@NotNull
-	@NotEmpty
 	private String teamName;
 	
-	@NotNull
-	@NotEmpty
 	public Set <UserEntity> members;
 
 	public long getTeamId() {
@@ -47,5 +43,8 @@ public class TeamTO {
 		this.members = members;
 	}
 
+
+
+	
 	
 }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -30,6 +31,9 @@ public class UserStatisticsEntity extends BaseEntity implements Serializable {
 	long numberOfGamesWon;
 	
 	long numberOfGamesLost;
+	
+	@OneToOne
+	UserEntity user;
 	
 
 	public long getStatisticsId() {

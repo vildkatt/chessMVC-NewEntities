@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.chess.dao.UserDao;
-import com.capgemini.chess.dataaccess.entities.UserEntity;
 import com.capgemini.chess.exceptions.EntityNotFoundException;
+import com.capgemini.chess.exceptions.ParameterNotValidException;
 import com.capgemini.chess.service.UserRegistrationService;
 import com.capgemini.chess.service.mapper.UserProfileMapper;
 import com.capgemini.chess.service.to.UserProfileTO;
@@ -22,11 +22,11 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 
 	@Override
 	public UserProfileTO registerUser(UserProfileTO userTO) {
-		UserProfileTO userTOSave = UserProfileMapper.map(userDao.findUserByLogin(userTO.getLogin()));
+		UserProfileTO userTOSave = UserProfileMapper.map(userDao.findOne(userTO.getId()));
 		if (userTOSave != null) {
-			throw new EntityNotFoundException("This login is already registered");
+			throw new ParameterNotValidException("This login is already registered");
 		}
-		userDao.save(UserProfileMapper.map(userTOSave));
+		userDao.save(UserProfileMapper.map(userTO));
 		String login = userTO.getLogin();
 		return (UserProfileMapper.map(userDao.findUserByLogin(login)));
 	}
@@ -38,7 +38,6 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 				throw new EntityNotFoundException("No such user in the database");
 			}
 			userDao.delete(UserProfileMapper.map(userTORemove));
-	
 	}
 
 	
