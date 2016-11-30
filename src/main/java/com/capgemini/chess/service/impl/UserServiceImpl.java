@@ -16,9 +16,13 @@ import com.capgemini.chess.service.UserService;
 import com.capgemini.chess.service.mapper.UserProfileMapper;
 import com.capgemini.chess.service.to.UserProfileTO;
 import com.capgemini.chess.utils.UserSearchCriteria;
+import com.capgemini.repo.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	private UserRepository repo;
 	
 	@Autowired
 	UserDao userDao;
@@ -38,7 +42,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public UserProfileTO findUserById(long id) {
-		return UserProfileMapper.map(userDao.findOne(id));
+		return userProfileMapper.map(userDao.findOne(id));
 	}
 	
 	

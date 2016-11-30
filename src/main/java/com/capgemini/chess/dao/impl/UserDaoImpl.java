@@ -29,7 +29,7 @@ public class UserDaoImpl extends AbstractDao<UserEntity, Long> implements UserDa
 	public UserEntity findUserByLogin(String login) {
 	
 		TypedQuery<UserEntity> query = entityManager.createQuery(
-				"select user from UserEntity user where user.login = :login",
+				"select u from UserEntity u where u.login = :login",
 				UserEntity.class);
 		query.setParameter("login", login);
 		return query.getSingleResult();
