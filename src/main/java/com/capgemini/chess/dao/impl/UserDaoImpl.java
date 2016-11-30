@@ -80,7 +80,7 @@ public class UserDaoImpl extends AbstractDao<UserEntity, Long> implements UserDa
 	@Override
 	public List<UserEntity> findUsersInATeam(String teamName) {
 			TypedQuery<UserEntity> query = entityManager.createQuery(
-					"select user from UserEntity user left join user.teams team where teams.name like :teamName",
+					"select user from UserEntity user left join user.teams teams where teams.teamName like :teamName",
 					UserEntity.class);
 			query.setParameter("teamName", teamName);
 			return query.getResultList();

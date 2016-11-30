@@ -81,7 +81,7 @@ public class ChallengeDaoImpl extends AbstractDao<ChallengeEntity, Long> impleme
 		this.challenges = challenges;
 	}
 
-	public final void initRepo() {
+	public void initRepo() {
 
 		UserEntity u1 = new UserEntity();
 		u1.setId(1);

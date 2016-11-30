@@ -21,8 +21,8 @@ import com.capgemini.repo.UserRepository;
 @Service
 public class UserServiceImpl implements UserService {
 	
-	@Autowired
-	private UserRepository repo;
+	//@Autowired
+	//private UserRepository repo;
 	
 	@Autowired
 	UserDao userDao;
@@ -85,9 +85,11 @@ public class UserServiceImpl implements UserService {
 		TeamEntity team = teamDao.findTeamByName(teamName);
 		if (team==null) {throw new EntityNotFoundException ("Team not found");}
 		Set <TeamEntity> teams = user.getTeam();
+
 		teams.add(team);
 		user.setTeam(teams);
 		userDao.update(user);
+
 	}
 
 	public UserDao getUserDao() {
