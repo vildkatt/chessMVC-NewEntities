@@ -54,7 +54,7 @@ public abstract class AbstractDao<T, K extends Serializable> implements Dao<T, K
 
     @Override
     public void delete(T entity) {
-        entityManager.remove(entity);
+    	 entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
     }
 
     @Override

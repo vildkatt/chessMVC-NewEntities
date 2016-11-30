@@ -26,15 +26,18 @@ public class UserDaoImpl extends AbstractDao<UserEntity, Long> implements UserDa
 	}
 
 	@Override
-	public UserEntity findUserByLogin(String login) {
+    public UserEntity findUserByLogin(String login) {
+        TypedQuery<UserEntity> query = entityManager.createQuery(
+                "select u from UserEntity u where u.login = :login",
+                UserEntity.class);
+        query.setParameter("login", login);
+        List<UserEntity>resultList = query.getResultList();
+        if(resultList.isEmpty()){
+            return null;
+        }
+        return resultList.get(0);
+    }
 	
-		TypedQuery<UserEntity> query = entityManager.createQuery(
-				"select u from UserEntity u where u.login = :login",
-				UserEntity.class);
-		query.setParameter("login", login);
-		return query.getSingleResult();
-	}
-
 	@Override
 	public List<UserEntity> findUsersBySurname (String surname) {
 		TypedQuery<UserEntity> query = entityManager.createQuery(

@@ -1,3 +1,8 @@
+insert into USER_STATISTICS (number_of_games_lost,number_of_games_played,number_of_games_won) values (22,12,10);
+insert into USER_STATISTICS (number_of_games_lost,number_of_games_played,number_of_games_won) values (22,12,10);
+insert into USER_STATISTICS (number_of_games_lost,number_of_games_played,number_of_games_won) values (22,12,10);
+insert into USER_STATISTICS (number_of_games_lost,number_of_games_played,number_of_games_won) values (22,22,33);
+insert into USER_STATISTICS (number_of_games_lost,number_of_games_played,number_of_games_won) values (22,22,33);
 insert into USER_STATISTICS (number_of_games_lost,number_of_games_played,number_of_games_won) values (22,22,33);
 
 insert into USERS (login, surname, password, level, statistics_id) values ("login", "Kowalski", "passwd", 1, 1);
@@ -20,5 +25,4 @@ insert into team_members (user_id, team_id) values (2,1);
 insert into team_members (user_id, team_id) values (2,2);
 insert into team_members (user_id, team_id) values (2,3);
 
-insert into user_statistics (number_of_games_played, number_of_games_won, number_of_games_lost) values (2,1,1);
 
