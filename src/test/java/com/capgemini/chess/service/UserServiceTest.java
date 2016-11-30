@@ -12,11 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.capgemini.chess.dao.UserDao;
-import com.capgemini.chess.dataaccess.entities.UserEntity;
 import com.capgemini.chess.exceptions.EntityNotFoundException;
 import com.capgemini.chess.exceptions.WrongParameterException;
-import com.capgemini.chess.service.mapper.UserProfileMapper;
 import com.capgemini.chess.service.to.UserProfileTO;
+import com.capgemini.chess.utils.UserSearchCriteria;
 
 
 @RunWith(SpringRunner.class)
@@ -55,6 +54,7 @@ public class UserServiceTest {
 	public void shouldFindUserEntityByLogin(){
 		String login = "login";
 		UserProfileTO user = us.findUserEntityByLogin(login);
+		//then
 		Assert.assertNotNull(user);
 		Assert.assertTrue(login.equals(user.getLogin()));
 		Assert.assertTrue("Kowalski".equals(user.getSurname()));
@@ -63,6 +63,7 @@ public class UserServiceTest {
 	@Test
 	public void shouldFindUsersInATeam(){
 		List<UserProfileTO> users = us.findUsersInATeam("111");
+		//then
 		Assert.assertEquals(2,users.size());
 	}
 
@@ -89,6 +90,21 @@ public class UserServiceTest {
 	@Test(expected=WrongParameterException.class)
 	public void shouldThrowWrongParameterExceptionWhenLoginIsNull(){
 		us.assignUserToATeam(null, "Team_Name");
+	}
+	
+	@Test
+	public void shouldFindByCriteria(){
+		
+		UserSearchCriteria usc  = new UserSearchCriteria();
+		usc.setLogin("login");
+		usc.setEmail("email");
+		usc.setSurname("Kowalski");
+		
+		
+		us.findUserBySearchCriteria(usc);
+		Assert.assertNotNull(us.findUserBySearchCriteria(usc));
+		
+
 	}
 
 }

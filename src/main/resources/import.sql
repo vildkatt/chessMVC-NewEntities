@@ -5,7 +5,7 @@ insert into USER_STATISTICS (number_of_games_lost,number_of_games_played,number_
 insert into USER_STATISTICS (number_of_games_lost,number_of_games_played,number_of_games_won) values (22,22,33);
 insert into USER_STATISTICS (number_of_games_lost,number_of_games_played,number_of_games_won) values (22,22,33);
 
-insert into USERS (login, surname, password, level, statistics_id) values ("login", "Kowalski", "passwd", 1, 1);
+insert into USERS (login, surname, email, password, level, statistics_id) values ("login", "Kowalski","email", "passwd", 1, 1);
 insert into USERS (login, surname, password, level, statistics_id) values ("bbb", "Nowak", "aaa", 1, 1);
 insert into USERS (login, surname, password, level, statistics_id) values ("ccc", "ccc", "aaa", 2, 1);
 insert into USERS (login, surname, password, level, statistics_id) values ("somelogin", "ddd", "aaa", 3, 1);
